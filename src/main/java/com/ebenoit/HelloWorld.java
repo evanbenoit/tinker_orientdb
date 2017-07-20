@@ -12,12 +12,12 @@ public class HelloWorld {
 
         Graph graph = TinkerGraph.open();
         Vertex marko = graph.addVertex("name","marko","age",29);
-        Vertex lop = graph.addVertex("name","lop","lang","java");
-        marko.addEdge("created",lop,"weight",0.6d);
+        Vertex sandwich = graph.addVertex("name","sandwich","lang","java");
+        marko.addEdge("created",sandwich,"weight",0.6d);
 
         GraphTraversalSource g = graph.traversal();
 
-        String name = (String)graph.vertices().next().property("name").value();
+        String name = graph.vertices().next().property("name").value().toString();
 
         System.out.println(name);
 
