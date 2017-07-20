@@ -1,0 +1,29 @@
+group 'ebenoit'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+
+sourceCompatibility = 1.5
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+    compile (
+            [group:'org.apache.tinkerpop', name:'tinkergraph-gremlin', version: '3.2.5']
+    )
+}
+
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile (
+            [group: 'org.apache.commons', name: 'commons-vfs2', version: '2.0'],
+            [group: 'com.jcraft', name: 'jsch', version: '0.1.51']
+    )
+}
