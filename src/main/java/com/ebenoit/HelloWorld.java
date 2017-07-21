@@ -3,6 +3,7 @@ package com.ebenoit;
 
 import com.tinkerpop.blueprints.TransactionalGraph;
 import com.tinkerpop.blueprints.impls.orient.OrientGraph;
+import com.tinkerpop.blueprints.impls.orient.OrientGraphFactory;
 import com.tinkerpop.blueprints.impls.orient.OrientVertex;
 import org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.GraphTraversalSource;
 import org.apache.tinkerpop.gremlin.structure.Graph;
@@ -15,15 +16,22 @@ public class HelloWorld {
 
 //        OrientGraph graph = new OrientGraph("memory:test");
 //        OrientGraph graph = new OrientGraph("plocal:c:/temp/graph");
-        OrientGraph graph = new OrientGraph("plocal:C:/orientdb-community-2.2.22/databases/GratefulDeadConcerts");
+        //https://orientdb.com/docs/2.2/Gremlin.html
+        //https://orientdb.com/docs/2.2/Graph-Database-Tinkerpop.html
+        OrientGraphFactory factory = new OrientGraphFactory("plocal:C:/orientdb-community-2.2.22/databases/GratefulDeadConcerts").setupPool(1,10);
 
-        OrientVertex v1 = graph.addVertex(10);
-        v1.setProperty("name", "foo");
+        OrientGraph graph = factory.getTx();
 
-        OrientVertex v2 = graph.addVertex(12);
+        OrientVertex v1 = graph.addVertex(null);
+        v1.setProperties("name", "foo", "attitude", "happy", "height", "tall");
+
+        OrientVertex v2 = graph.addVertex(null);
         v2.setProperty("name", "bar");
 
-        graph.addEdge(3, v1, v2, "created");
+        graph.addEdge(null, v1, v2, "created");
+
+        graph.commit();
+
 
         System.out.println("Vertex count:" + graph.countVertices());
 
